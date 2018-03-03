@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Drawing;
-using ExcelLibrary.CompoundDocumentFormat;
 using ExcelLibrary.SpreadSheet;
+#if FEATURE_SYSTEMDRAWING
+using System.Drawing;
+#else
+using Color=SkiaSharp.SKColor;
+#endif
 
 namespace ExcelLibrary.BinaryFileFormat
 {
@@ -114,7 +116,15 @@ namespace ExcelLibrary.BinaryFileFormat
                         int colorIndex = 8;
                         foreach (int color in palette.Colors)
                         {
+#if FEATURE_SYSTEMDRAWING
                             sharedResource.ColorPalette[colorIndex] = Color.FromArgb(color);
+#else
+                            if (color < 0)
+                            {
+                                throw new InvalidOperationException($"{nameof(color)} was excpected to be equal to or larger than 0");
+                            }
+                            sharedResource.ColorPalette[colorIndex] = new Color((uint)color);
+#endif
                             colorIndex++;
                         }
                         break;

@@ -15,12 +15,13 @@ namespace ExcelLibrary.BinaryFileFormat
         {
             List<Record> records = EncodeWorkbook(workbook);
 
-            BinaryWriter writer = new BinaryWriter(stream);
-            foreach (Record record in records)
+            using (BinaryWriter writer = new BinaryWriter(stream))
             {
-                record.Write(writer);
+                foreach (Record record in records)
+                {
+                    record.Write(writer);
+                }
             }
-            writer.Close();
         }
 
         private static List<Record> EncodeWorkbook(Workbook workbook)

@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Drawing;
-using ExcelLibrary.CompoundDocumentFormat;
 using ExcelLibrary.SpreadSheet;
 
 namespace ExcelLibrary.BinaryFileFormat

@@ -1,3 +1,4 @@
+#if FEATURE_DATATABLE
 using System;
 using System.Data;
 using System.IO;
@@ -123,3 +124,4 @@ namespace ExcelLibrary
         }
     }
 }
+#endif

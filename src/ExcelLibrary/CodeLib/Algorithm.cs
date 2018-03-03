@@ -71,7 +71,11 @@ namespace QiHe.CodeLib
         /// </summary>
         /// <param name="list">list of lists</param>
         /// <returns>the maximum length</returns>
+#if FEATURE_ARRAYLIST
         public static int Maximum(ArrayList list)
+#else
+        public static int Maximum<T>(IEnumerable<T> list) where T : ICollection
+#endif
         {
             int max = 0;
             foreach (ICollection sublist in list)

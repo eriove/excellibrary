@@ -57,16 +57,9 @@ namespace ExcelLibrary.CompoundDocumentFormat
 
         public static CompoundDocument Open(string file)
         {
-            FileStream stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
-
-            try
+            using (FileStream stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.Read))
             {
                 return Open(stream);
-            }
-            catch (Exception ex)
-            {
-                stream.Close();
-                throw ex;
             }
         }
 
@@ -125,7 +118,7 @@ namespace ExcelLibrary.CompoundDocumentFormat
             {
                 if (FileStorage != null)
                 {
-                    FileStorage.Close();
+                    FileStorage.Dispose();
                     FileStorage = null;
                 }
             }
